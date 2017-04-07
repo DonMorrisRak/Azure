@@ -45,10 +45,7 @@
     },
     "blobSSE": {
       "type": "bool",
-      "defaultValue": true,
-      "metadata": {
-        "description": "Enable encryption at rest on the blob storage"
-      },
+      "defaultValue": true
     },
     "environment": {
       "type": "string",
