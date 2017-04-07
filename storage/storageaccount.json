@@ -48,7 +48,7 @@
       "defaultValue": true,
       "metadata": {
         "description": "Enable encryption at rest on the blob storage"
-      }
+      },
     },
     "environment": {
       "type": "string",
