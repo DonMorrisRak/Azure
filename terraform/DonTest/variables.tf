@@ -20,3 +20,15 @@ variable "client_secret" {
 variable "tenant_id" {
   description = "Enter Tenant ID / Directory ID of your Azure AD. Run Get-AzureSubscription to know your Tenant ID"
 }
+
+variable "location" {
+  default = "West Eruope"
+}
+
+variable "all-rsg-name" {
+  default = "WEU-TF-TST-RSG"
+}
+
+variable "buildby" {
+  default = "Don Morris"
+}

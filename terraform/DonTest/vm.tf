@@ -1,20 +1,20 @@
 #Availability Set
 resource "azurerm_availability_set" "WEU-TST-AVSET-WEB" {
   name                = "WEU-TST-AVSET-WEB"
-  location            = "West Europe"
-  resource_group_name = "${azurerm_resource_group.WEU-TST-RSG.name}"
+  location            = "${var.location}"
+  resource_group_name = "${var.all-rsg-name}"
   managed             = "true"
 
   tags {
-    Buildby = "Don Morris"
+    Buildby = "${var.buildby}"
   }
 }
 
 #NIC
 resource "azurerm_network_interface" "WEU-VM-WEB-01-nic" {
   name                = "WEU-VM-WEB-01-nic"
-  location            = "West Europe"
-  resource_group_name = "${azurerm_resource_group.WEU-TST-RSG.name}"
+  location            = "${var.location}"
+  resource_group_name = "${var.all-rsg-name}"
 
   ip_configuration {
     name                          = "WEU-VM-WEB-01-nic"
@@ -23,15 +23,15 @@ resource "azurerm_network_interface" "WEU-VM-WEB-01-nic" {
   }
 
   tags {
-    Buildby = "Don Morris"
+    Buildby = "${var.buildby}"
   }
 }
 
 #VM
 resource "azurerm_virtual_machine" "WEU-VM-WEB-01" {
   name                  = "WEU-VM-WEB-01"
-  location              = "West Europe"
-  resource_group_name   = "${azurerm_resource_group.WEU-TST-RSG.name}"
+  location              = "${var.location}"
+  resource_group_name   = "${var.all-rsg-name}"
   network_interface_ids = ["${azurerm_network_interface.WEU-VM-WEB-01-nic.id}"]
   vm_size               = "Standard_DS1_v2"
   availability_set_id   = "${azurerm_availability_set.WEU-TST-AVSET-WEB.id}"
@@ -56,11 +56,11 @@ resource "azurerm_virtual_machine" "WEU-VM-WEB-01" {
     admin_password = "yuw0f2u87TH5VihlpinO"
   }
 
-   os_profile_linux_config {
+  os_profile_linux_config {
     disable_password_authentication = "false"
-   }
+  }
 
   tags {
-    Buildby = "Don Morris"
+    Buildby = "${var.buildby}"
   }
 }
