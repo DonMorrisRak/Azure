@@ -6,7 +6,7 @@ resource "azurerm_virtual_network" "WEU-TST-VNET" {
   resource_group_name = "${var.all-rsg-name}"
 
   tags {
-    Buildby = "Don Morris"
+    Buildby = "${var.buildby}"
   }
 }
 
