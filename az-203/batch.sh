@@ -37,5 +37,6 @@ az batch task file download --job-id myJob --task-id myTask --file-path stdout.t
 
 #DELETE
 az batch task stop --job-id myJob --task-id myTask
-az batch pool delete -n $btcPoolName
+az batch pool delete -id $btcPoolName
+az batch account delete -n $btcAccName -g $rgName
 az group delete -n $rgName
