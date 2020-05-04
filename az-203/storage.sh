@@ -14,6 +14,12 @@ conString=`az storage account show-connection-string -n $srtAccName --query "con
 ### Get Account Key
 accKey=`az storage account keys list -n $srtAccName --query "[0].value"`
 
+### Generate SAS Key on a blob
+az storage blob generate-sas --account-name $srtAccName -g $rgName --container-name $containerName --name family.json --permissions r
+## use --start and --expiry Y-m-d'T'H:M'Z'
+### Create a URL to access a blob with SAS token
+az storage blob url --sas
+
 ### Tables
 az storage table create -n $tblName --connection-string $conString
 az storage table create -n tblName --account-key $accKey --account-name $srtAccName

@@ -30,7 +30,7 @@ az batch job create --id myJob --pool-id $btcPoolName
 
 #Batch Task
 az batch task create --task-id myTask --job-id myJob --command-line "/bin/bash -c 'printenv | grep AZ_BATCH; sleep 90s'"
-# --resource-files can be used to download files to the nodes before running the --command-line.  Public or read SAS. 
+#--resource-files can be used to download files to the nodes before running the --command-line.  Public or read SAS. filename=httpurl 
 az batch task show --job-id myJob --task-id myTask
 az batch task file list --job-id myJob --task-id myTask --output table
 az batch task file download --job-id myJob --task-id myTask --file-path stdout.txt --destination ./stdout-task-txt
