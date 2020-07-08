@@ -57,3 +57,11 @@ resource "azurerm_virtual_machine" "WEU-VM-WEB-01" {
   }
 
 }
+
+module "web_vms_cse" {
+  source                = "../modules/terraform-azurerm-cse"
+  vm_id                 = module.vm01.vm.*.id
+  vm_extension_function = "OS"
+  storage_account       = var.cse_account
+  storage_account_key   = var.cse_key
+}
