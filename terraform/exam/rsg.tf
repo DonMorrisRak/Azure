@@ -8,3 +8,10 @@ resource "azurerm_resource_group" "rsg" {
 output "rsg" {
   value = azurerm_resource_group.rsg.tags
 }
+
+resource "azurerm_resource_group" "d11" {
+  name     = "DON-11"
+  location = "uksouth"
+
+  tags = var.tags
+}
