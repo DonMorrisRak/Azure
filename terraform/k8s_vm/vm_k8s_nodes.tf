@@ -3,6 +3,7 @@ resource "azurerm_network_interface" "k8s_nodes_nic" {
   name                = "don-k8s-node-${count.index + 1}-nic"
   location            = azurerm_resource_group.k8s.location
   resource_group_name = azurerm_resource_group.k8s.name
+  enable_ip_forwarding = true 
 
   ip_configuration {
     name                          = "internal"
