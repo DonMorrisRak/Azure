@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: don-map
+data:
+  key1: "Pearl"
+  key2: |
+    test = "12343"
+    mine = "yes"

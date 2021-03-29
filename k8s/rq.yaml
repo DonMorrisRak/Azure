@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: me-bb
+spec:
+  restartPolicy: Always      
+  containers:
+      - image: nginx
+        name: nginx
+        livenessProbe:
+         httpGet:
+            path: /
+            port: 80
+         initialDelaySeconds: 5
+         periodSeconds: 5       
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "128M"
+          limits:
+           cpu: "1000m"
+           memory: "512M"        
