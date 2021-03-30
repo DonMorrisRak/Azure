@@ -1,13 +1,35 @@
 Namespace 
+    kubectl create namespace frais
+
 Loadbalancer/clusterip 
+
+
 Nginx/php replica set
+
+
 Config map / secret
+
+
 Persistent volume site retain 
+
+
 Service MySQL 
+
+
 MySQL 
+
+
 Volume import database retain
+
+
 Ingress controller
+
+
 Resource request
+
+
 Monitors / tests
+
+
 
 https://79138ecbcb6991066514-842131932bcfdf9f2f0956b835237892.ssl.cf1.rackcdn.com/frais.zip

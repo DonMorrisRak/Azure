@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: frais
+  labels:
+    app: nginx
+    site: frais
+  name: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+      site: fraise
+  template:
+    metadata:
+      namespace: frais
+      labels:
+        app: nginx
+        site: frais
+    spec:
+      containers:
+      - image: webdevops/php-nginx
+        name: php-nginx
+        resources: {}
