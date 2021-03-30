@@ -11,7 +11,7 @@ spec:
   selector:
     matchLabels:
       app: nginx
-      site: fraise
+      site: frais
   template:
     metadata:
       namespace: frais
