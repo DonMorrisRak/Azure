@@ -26,7 +26,7 @@ spec:
         - mountPath: "/app"
           name: localdisk
         - mountPath: /app/scripts
-          name: config   
+          name: php-conn   
       volumes: 
       - name: "localdisk"
         persistentVolumeClaim:
