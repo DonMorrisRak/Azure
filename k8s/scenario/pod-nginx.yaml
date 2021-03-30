@@ -20,6 +20,6 @@ spec:
         site: frais
     spec:
       containers:
-      - image: webdevops/php-nginx
+      - image: webdevops/php-nginx:5.6
         name: php-nginx
         resources: {}

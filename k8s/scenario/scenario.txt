@@ -5,7 +5,7 @@ Loadbalancer/clusterip
 
 
 Nginx/php replica set
-
+pod-nginx
 
 Config map / secret
 
