@@ -8,19 +8,21 @@ Nginx/php replica set
 pod-nginx.yaml
 
 Config map / secret
+secret.yaml
+configMap.yaml
 
 StorageClass
 Persistent volume site retain 
 
 
 Service MySQL - clusterip
-
+service-mysql.yaml
 
 MySQL 
-
+pod-mysql.yaml
 
 Volume import database retain
-
+storage-nginx.yaml
 
 Ingress controller
 
