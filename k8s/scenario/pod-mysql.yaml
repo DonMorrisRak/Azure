@@ -27,7 +27,10 @@ spec:
           name: localdisk
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: "MySQLPaSS123" 
+          valueFrom: 
+           secretKeyRef:
+            name: mysql-pass
+            key: password
         - name: MYSQL_DATABASE
           value: "frais_db"      
       volumes: 
