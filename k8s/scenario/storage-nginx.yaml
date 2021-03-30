@@ -1,0 +1,41 @@
+# Storage Class #
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: localdisk
+provisioner: local
+parameters:
+  type: appStorage
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+volumeBindingMode: Immediate
+# Persistent Volume #
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: app-volume
+spec:
+  capacity:
+    storage: 500Mi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: localdisk
+  hostPath:
+    path: /app
+    type: Directory
+# Persistent Volume Claim #
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: app-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 400Mi
+  storageClassName: localdisk

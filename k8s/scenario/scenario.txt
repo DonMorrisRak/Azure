@@ -2,14 +2,14 @@ Namespace
     kubectl create namespace frais
 
 Service Nginx - NodePort.
-
+service-nginx.yaml
 
 Nginx/php replica set
-pod-nginx
+pod-nginx.yaml
 
 Config map / secret
 
-
+StorageClass
 Persistent volume site retain 
 
 
