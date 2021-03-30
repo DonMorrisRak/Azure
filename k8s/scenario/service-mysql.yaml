@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: frais
+  name: mysql
+spec:
+  type: ClusterIP
+  selector:
+    app: mysql
+    site: frais
+  ports:
+    - port: 3306
+      targetPort: 3306

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: frais
+  labels:
+    app: mysql
+    site: frais
+  name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+      site: frais
+  template:
+    metadata:
+      namespace: frais
+      labels:
+        app: mysql
+        site: frais
+    spec:
+      containers:
+      - image: mysql:5.7
+        name: mysql
+        volumeMounts: 
+        - mountPath: "/app"
+          name: localdisk
+      volumes: 
+      - name: "localdisk"
+        persistentVolumeClaim:
+          claimName: app-claim
