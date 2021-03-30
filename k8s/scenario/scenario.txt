@@ -13,7 +13,7 @@ configMap.yaml
 
 StorageClass
 Persistent volume site retain 
-
+storage-nginx.yaml
 
 Service MySQL - clusterip
 service-mysql.yaml
@@ -24,14 +24,15 @@ pod-mysql.yaml
 Volume import database retain
 storage-nginx.yaml
 
-Ingress controller
 
+Backup cluster
+Upgrade minor version
+restore.
+
+Ingress controller
 
 Resource request
 
-
 Monitors / tests
-
-
 
 https://79138ecbcb6991066514-842131932bcfdf9f2f0956b835237892.ssl.cf1.rackcdn.com/frais.zip
