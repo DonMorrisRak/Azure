@@ -23,8 +23,13 @@ spec:
       - image: mysql:5.7
         name: mysql
         volumeMounts: 
-        - mountPath: "/app"
+        - mountPath: "/docker-entrypoint-initdb.d"
           name: localdisk
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "MySQLPaSS123" 
+        - name: MYSQL_DATABASE
+          value: "frais_db"      
       volumes: 
       - name: "localdisk"
         persistentVolumeClaim:
