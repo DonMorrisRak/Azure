@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: php-conn
+data:
+  # file-like keys
+  connection.php: |
+    <?php
+    $servername = "mysql";
+    $username = "root";
+    $password = "MySQLPaSS123";
+    $database = "frais_db";
+    $connection = mysqli_connect($servername, $username, $password, $database);
+    ?>
+ 
