@@ -61,9 +61,6 @@ sudo apt-mark hold kubelet kubeadm kubectl
 
 # initialize cluster
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
-# OR Weave
-sudo kubeadm init
-
 
 # setup files to download from minion
 mkdir -p /home/azadmin/.kube
