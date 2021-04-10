@@ -13,4 +13,3 @@ data:
     $database = "frais_db";
     $connection = mysqli_connect($servername, $username, $password, $database);
     ?>
- 

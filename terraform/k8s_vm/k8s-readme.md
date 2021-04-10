@@ -1,4 +1,4 @@
-# K8S Cluster with Kubeadm, ContainerD or Docker and Flannel
+# K8S Cluster with Kubeadm, ContainerD or Docker and Flannel/Weave
 # Disable SWAP
 sudo swapoff -a
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
@@ -61,6 +61,9 @@ sudo apt-mark hold kubelet kubeadm kubectl
 
 # initialize cluster
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+# OR Weave
+sudo kubeadm init
+
 
 # setup files to download from minion
 mkdir -p /home/azadmin/.kube
@@ -70,6 +73,8 @@ kubectl version
 
 # prepare configuration and provision flannel networking for linux
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml 
+# OR Weave
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 kubectl get pods -n kube-system
 
 # Join nodes to cluster -install steps above. 
