@@ -10,12 +10,12 @@ terraform {
     #   key                  = "terraform.tfstate"
     # }
   }
-    required_providers {
-      azurerm = {
-        source  = "hashicorp/azurerm"
-        version = ">= 2.26"
-      }
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">= 2.26"
     }
+  }
 }
 
 
@@ -34,7 +34,7 @@ variable "home_ip" {}
 variable "tags" {
   type = map(any)
   default = {
-    Application   = "Kubernetes"
-    Date = "19/03/2021"
+    Application = "Kubernetes"
+    Date        = "19/03/2021"
   }
 }

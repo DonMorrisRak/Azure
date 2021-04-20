@@ -13,7 +13,7 @@ resource "azurerm_windows_virtual_machine_scale_set" "sf" {
   source_image_reference {
     publisher = "MicrosoftWindowsServer"
     offer     = "WindowsServer"
-    sku       = "2016-Datacenter-with-Containers"
+    sku       = "2019-Datacenter-with-Containers"
     version   = "latest"
   }
 
@@ -39,13 +39,13 @@ resource "azurerm_windows_virtual_machine_scale_set" "sf" {
     }
   }
 
-    secret {
-    certificate {
-      store = "My"
-      url   = azurerm_key_vault_certificate.sf.secret_id
-    }
-    key_vault_id = azurerm_key_vault.sf.id
-  }
+  # secret {
+  #   certificate {
+  #     store = "My"
+  #     url   = azurerm_key_vault_certificate.sf.secret_id
+  #   }
+  #   key_vault_id = azurerm_key_vault.sf.id
+  # }
 
   extension {
     name                       = "sfServiceFabricNode"
@@ -57,15 +57,15 @@ resource "azurerm_windows_virtual_machine_scale_set" "sf" {
     settings = jsonencode({
       "clusterEndpoint"    = azurerm_service_fabric_cluster.sf.cluster_endpoint
       "nodeTypeRef"        = azurerm_service_fabric_cluster.sf.node_type[0].name
-      "durabilityLevel"    = "Bronze"
+      "durabilityLevel"    = "bronze"
       "nicPrefixOverride"  = azurerm_subnet.sf.address_prefixes[0]
       "enableParallelJobs" = true
-      "certificate" = {
-        "commonNames" = [
-          azurerm_lb.sf.frontend_ip_configuration[0].private_ip_address,
-        ]
-        "x509StoreName" = "My"
-      }
+      # "certificate" = {
+      #   "commonNames" = [
+      #     azurerm_lb.sf.frontend_ip_configuration[0].private_ip_address,
+      #   ]
+      #   "x509StoreName" = "My"
+      # }
     })
 
     protected_settings = jsonencode({

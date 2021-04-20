@@ -6,31 +6,31 @@ resource "azurerm_service_fabric_cluster" "sf" {
   upgrade_mode        = "Manual"
   vm_image            = "Windows"
   #management_endpoint = "https://donsftestservicefabric.${var.location}.cloudapp.azure.com:80"
-  management_endpoint = "https://${azurerm_lb.sf.frontend_ip_configuration[0].private_ip_address}:80"
+  management_endpoint = "http://${azurerm_lb.sf.frontend_ip_configuration[0].private_ip_address}:19080"
 
   node_type {
     name                 = "Windows"
     instance_count       = 1
     is_primary           = true
-    client_endpoint_port = 8080
-    http_endpoint_port   = 80
+    client_endpoint_port = 19000
+    http_endpoint_port   = 19080
     application_ports {
-      start_port         = 20050
-      end_port           = 20500 
+      start_port = 20050
+      end_port   = 20500
     }
   }
-  reverse_proxy_certificate {
-    thumbprint      = azurerm_key_vault_certificate.sf.thumbprint
-    x509_store_name = "My"
-  }
+  # reverse_proxy_certificate {
+  #   thumbprint      = azurerm_key_vault_certificate.sf.thumbprint
+  #   x509_store_name = "My"
+  # }
 
-  certificate {
-    thumbprint      = azurerm_key_vault_certificate.sf.thumbprint
-    x509_store_name = "My"
-  }
+  # certificate {
+  #   thumbprint      = azurerm_key_vault_certificate.sf.thumbprint
+  #   x509_store_name = "My"
+  # }
 
-  client_certificate_thumbprint {
-    thumbprint = azurerm_key_vault_certificate.sf.thumbprint
-    is_admin   = true
-  }
+  # client_certificate_thumbprint {
+  #   thumbprint = azurerm_key_vault_certificate.sf.thumbprint
+  #   is_admin   = true
+  # }
 }
