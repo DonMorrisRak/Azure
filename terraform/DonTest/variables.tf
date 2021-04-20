@@ -1,43 +1,40 @@
+### Provider, auth keys and Environment details.
+### Keys taken from tarraform.tfvars file. 
+
+terraform {
+  backend "local" {
+    # backend "azurerm" {
+    #   resource_group_name  = "UKS-RSG-DON-TERRAFORM"
+    #   storage_account_name = "uksdontfstore"
+    #   container_name       = "tf-states"
+    #   key                  = "terraform.tfstate"
+    # }
+  }
+    required_providers {
+      azurerm = {
+        source  = "hashicorp/azurerm"
+        version = ">= 2.26"
+      }
+    }
+}
+
+
 provider "azurerm" {
-  subscription_id = var.subscription_id
-  client_id       = var.client_id
-  client_secret   = var.client_secret
-  tenant_id       = var.tenant_id
   features {}
 }
 
-variable "subscription_id" {
-  description = "Enter Subscription ID for provisioning resources in Azure"
-}
-
-variable "client_id" {
-  description = "Enter Client ID for Application created in Azure AD"
-}
-
-variable "client_secret" {
-  description = "Enter Client secret for Application in Azure AD"
-}
-
-variable "tenant_id" {
-  description = "Enter Tenant ID / Directory ID of your Azure AD. Run Get-AzureSubscription to know your Tenant ID"
-}
-
+### Build Parameters ###
 variable "location" {
-  default = "australiaeast"
+  description = "Azure Region for the build"
+  default     = "uksouth"
 }
 
-variable "all-rsg-name" {
-  default = "RXMAN-AEA-TEST-RSG-PRD"
-}
+variable "home_ip" {}
 
-variable "buildby" {
-  default = "Don Morris"
-}
-
-variable "cse_account" {
-  default = "raxmanaeabuild"
-}
-
-variable "cse_key" {
-  default = "pWxb90s1Cn3LMt1fZTSsse34WYTeiNUTzpB/EN/SrvduJv7mbu/+JDUoO3iOYJl7tcfDC2InaV6jsCAfLRoNUQ=="
+variable "tags" {
+  type = map(any)
+  default = {
+    Application   = "Kubernetes"
+    Date = "19/03/2021"
+  }
 }
