@@ -1,6 +1,6 @@
 resource "azurerm_windows_virtual_machine_scale_set" "sf" {
-  name                 = "donvmss"
-  computer_name_prefix = "sf"
+  name                 = "ukststfosvmss"
+  computer_name_prefix = "ukststfos"
   resource_group_name  = azurerm_resource_group.sf.name
   location             = azurerm_resource_group.sf.location
   sku                  = "Standard_D2_v3"
@@ -23,7 +23,7 @@ resource "azurerm_windows_virtual_machine_scale_set" "sf" {
   }
 
   network_interface {
-    name    = "example"
+    name    = "nic"
     primary = true
 
     ip_configuration {

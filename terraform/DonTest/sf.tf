@@ -1,5 +1,5 @@
 resource "azurerm_service_fabric_cluster" "sf" {
-  name                = "donsftest"
+  name                = "ukststfosfab01"
   resource_group_name = azurerm_resource_group.sf.name
   location            = azurerm_resource_group.sf.location
   reliability_level   = "None"
@@ -8,16 +8,32 @@ resource "azurerm_service_fabric_cluster" "sf" {
   #management_endpoint = "https://donsftestservicefabric.${var.location}.cloudapp.azure.com:80"
   management_endpoint = "http://${azurerm_lb.sf.frontend_ip_configuration[0].private_ip_address}:19080"
 
+  add_on_features = ["DnsService", "RepairManager"]
+
+    diagnostics_config {
+        storage_account_name = azurerm_storage_account.sf.name
+        protected_account_key_name = "StorageAccountKey1"
+        blob_endpoint = azurerm_storage_account.sf.primary_blob_endpoint
+        queue_endpoint = azurerm_storage_account.sf.primary_queue_endpoint
+        table_endpoint = azurerm_storage_account.sf.primary_table_endpoint
+    }
+
+
   node_type {
-    name                 = "Windows"
+    name                 = "ukststfosnode"
     instance_count       = 1
     is_primary           = true
     client_endpoint_port = 19000
     http_endpoint_port   = 19080
+    reverse_proxy_endpoint_port = 19081
     application_ports {
-      start_port = 20050
-      end_port   = 20500
+      start_port = 20001
+      end_port   = 29000
     }
+    ephemeral_ports {
+      start_port = 49152
+      end_port   = 65535
+    }    
   }
   # reverse_proxy_certificate {
   #   thumbprint      = azurerm_key_vault_certificate.sf.thumbprint
