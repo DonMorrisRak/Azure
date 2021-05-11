@@ -1,0 +1,121 @@
+{
+  "version": 4,
+  "terraform_version": "0.14.7",
+  "serial": 225,
+  "lineage": "af3a9d3c-8a5b-4d1b-a876-6371b1b04335",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "data",
+      "type": "azurerm_client_config",
+      "name": "current",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "client_id": "d63f1064-4154-415c-952f-714186d685d0",
+            "id": "2021-05-11 13:18:47.211444 +0000 UTC",
+            "object_id": "b655f350-0ced-405c-b162-0094deba77ea",
+            "subscription_id": "ff434be1-4818-4c1d-a7f4-3d779d6a4c76",
+            "tenant_id": "cc59b7cf-e696-48da-b102-b44d574f39b2",
+            "timeouts": null
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_key_vault",
+      "name": "sf",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 2,
+          "attributes": {
+            "access_policy": [
+              {
+                "application_id": "",
+                "certificate_permissions": [
+                  "Create",
+                  "Delete",
+                  "Get",
+                  "Update",
+                  "List",
+                  "Purge",
+                  "Recover"
+                ],
+                "key_permissions": [
+                  "Create"
+                ],
+                "object_id": "b655f350-0ced-405c-b162-0094deba77ea",
+                "secret_permissions": [
+                  "Set"
+                ],
+                "storage_permissions": [
+                  "Set"
+                ],
+                "tenant_id": "cc59b7cf-e696-48da-b102-b44d574f39b2"
+              }
+            ],
+            "contact": [],
+            "enable_rbac_authorization": false,
+            "enabled_for_deployment": true,
+            "enabled_for_disk_encryption": true,
+            "enabled_for_template_deployment": false,
+            "id": "/subscriptions/ff434be1-4818-4c1d-a7f4-3d779d6a4c76/resourceGroups/DON-SF/providers/Microsoft.KeyVault/vaults/don-sf-lv",
+            "location": "uksouth",
+            "name": "don-sf-lv",
+            "network_acls": [
+              {
+                "bypass": "AzureServices",
+                "default_action": "Allow",
+                "ip_rules": [],
+                "virtual_network_subnet_ids": []
+              }
+            ],
+            "purge_protection_enabled": false,
+            "resource_group_name": "DON-SF",
+            "sku_name": "standard",
+            "soft_delete_enabled": true,
+            "soft_delete_retention_days": 90,
+            "tags": null,
+            "tenant_id": "cc59b7cf-e696-48da-b102-b44d574f39b2",
+            "timeouts": null,
+            "vault_uri": "https://don-sf-lv.vault.azure.net/"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIyIn0=",
+          "dependencies": [
+            "azurerm_resource_group.sf",
+            "data.azurerm_client_config.current"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_resource_group",
+      "name": "sf",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/ff434be1-4818-4c1d-a7f4-3d779d6a4c76/resourceGroups/DON-SF",
+            "location": "uksouth",
+            "name": "DON-SF",
+            "tags": {
+              "Application": "Kubernetes",
+              "Date": "19/03/2021"
+            },
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo1NDAwMDAwMDAwMDAwLCJkZWxldGUiOjU0MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjo1NDAwMDAwMDAwMDAwfX0="
+        }
+      ]
+    }
+  ]
+}
