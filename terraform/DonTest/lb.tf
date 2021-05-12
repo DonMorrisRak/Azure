@@ -2,7 +2,7 @@ resource "azurerm_lb" "sf" {
   name                = "TestLoadBalancer"
   location            = azurerm_resource_group.sf.location
   resource_group_name = azurerm_resource_group.sf.name
-  sku                 = "Basic"
+  sku                 = "Standard"
 
   frontend_ip_configuration {
     name                 = "private"
