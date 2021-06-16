@@ -10,12 +10,12 @@ terraform {
     #   key                  = "terraform.tfstate"
     # }
   }
-    required_providers {
-      azurerm = {
-        source  = "hashicorp/azurerm"
-        version = ">= 2.26"
-      }
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">= 2.26"
     }
+  }
 }
 
 
@@ -23,42 +23,65 @@ provider "azurerm" {
   features {}
 }
 
+variable "sas_token" {}
+variable "cse_account" {}
+variable "cse_key" {}
+variable "buildticket" {}
+variable "ad_password" {}
+variable "builddate" {}
+variable "buildby" {}
+
 ### Build Parameters ###
 variable "location" {
   description = "Azure Region for the build"
   default     = "uksouth"
 }
 
+variable "environment" {
+  default     = "rds"
+}
+
 variable "tags" {
   type = map(any)
   default = {
-    Application   = "RDS"
-    Date = "15/06/2021"
+    Application = "RDS"
+    Date        = "15/06/2021"
   }
 }
 
 ### Network ###
 variable "cidr_rd_web" {
-  default     = "10.100.4.0/28"
+  default = "10.100.4.0/28"
 }
 variable "cidr_rd_gw" {
-  default     = "10.100.4.16/28"
+  default = "10.100.4.16/28"
 }
 variable "cidr_rd_cb" {
-  default     = "10.100.4.32/28"
+  default = "10.100.4.32/28"
 }
 variable "cidr_rd_ls" {
-  default     = "10.100.4.48/28"
+  default = "10.100.4.48/28"
 }
 variable "cidr_rd_sh" {
-  default     = "10.100.4.64/28"
+  default = "10.100.4.64/28"
 }
 variable "cidr_rd_file" {
-  default     = "10.100.4.80/28"
+  default = "10.100.4.80/28"
 }
 variable "cidr_rd_ad" {
-  default     = "10.100.4.96/28"
+  default = "10.100.4.96/28"
 }
 variable "cidr_rd_sql" {
-  default     = "10.100.4.112/28"
+  default = "10.100.4.112/28"
+}
+variable "cidr_rd_bast" {
+  default = "10.100.4.128/28"
+}
+### Active Directory ###
+variable "ad_domain" {
+  default     = "don.local"
+}
+
+variable "ad_netbios_name" {
+  default     = "don"
 }
