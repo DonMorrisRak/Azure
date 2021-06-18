@@ -1,7 +1,7 @@
 resource "azurerm_network_security_group" "rd-web" {
   name                = "${azurerm_subnet.rd-web.name}-NSG"
-  location            = azurerm_resource_group.vnet.location
-  resource_group_name = azurerm_resource_group.vnet.name
+  location            = azurerm_resource_group.rds.location
+  resource_group_name = azurerm_resource_group.rds.name
 
   security_rule {
     name                       = "VNET"
@@ -23,8 +23,8 @@ resource "azurerm_subnet_network_security_group_association" "rd-web" {
 
 resource "azurerm_network_security_group" "rd-gw" {
   name                = "${azurerm_subnet.rd-gw.name}-NSG"
-  location            = azurerm_resource_group.vnet.location
-  resource_group_name = azurerm_resource_group.vnet.name
+  location            = azurerm_resource_group.rds.location
+  resource_group_name = azurerm_resource_group.rds.name
 
   security_rule {
     name                       = "VNET"
@@ -45,8 +45,8 @@ resource "azurerm_subnet_network_security_group_association" "rd-gw" {
 }
 resource "azurerm_network_security_group" "rd-cb" {
   name                = "${azurerm_subnet.rd-cb.name}-NSG"
-  location            = azurerm_resource_group.vnet.location
-  resource_group_name = azurerm_resource_group.vnet.name
+  location            = azurerm_resource_group.rds.location
+  resource_group_name = azurerm_resource_group.rds.name
 
   security_rule {
     name                       = "VNET"
@@ -67,8 +67,8 @@ resource "azurerm_subnet_network_security_group_association" "rd-cb" {
 }
 resource "azurerm_network_security_group" "rd-ls" {
   name                = "${azurerm_subnet.rd-ls.name}-NSG"
-  location            = azurerm_resource_group.vnet.location
-  resource_group_name = azurerm_resource_group.vnet.name
+  location            = azurerm_resource_group.rds.location
+  resource_group_name = azurerm_resource_group.rds.name
 
   security_rule {
     name                       = "VNET"
@@ -89,8 +89,8 @@ resource "azurerm_subnet_network_security_group_association" "rd-ls" {
 }
 resource "azurerm_network_security_group" "rd-sh" {
   name                = "${azurerm_subnet.rd-sh.name}-NSG"
-  location            = azurerm_resource_group.vnet.location
-  resource_group_name = azurerm_resource_group.vnet.name
+  location            = azurerm_resource_group.rds.location
+  resource_group_name = azurerm_resource_group.rds.name
 
   security_rule {
     name                       = "VNET"
@@ -111,8 +111,8 @@ resource "azurerm_subnet_network_security_group_association" "rd-sh" {
 }
 resource "azurerm_network_security_group" "rd-file" {
   name                = "${azurerm_subnet.rd-file.name}-NSG"
-  location            = azurerm_resource_group.vnet.location
-  resource_group_name = azurerm_resource_group.vnet.name
+  location            = azurerm_resource_group.rds.location
+  resource_group_name = azurerm_resource_group.rds.name
 
   security_rule {
     name                       = "VNET"
@@ -133,8 +133,8 @@ resource "azurerm_subnet_network_security_group_association" "rd-file" {
 }
 resource "azurerm_network_security_group" "rd-ad" {
   name                = "${azurerm_subnet.rd-ad.name}-NSG"
-  location            = azurerm_resource_group.vnet.location
-  resource_group_name = azurerm_resource_group.vnet.name
+  location            = azurerm_resource_group.rds.location
+  resource_group_name = azurerm_resource_group.rds.name
 
   security_rule {
     name                       = "VNET"
@@ -155,8 +155,8 @@ resource "azurerm_subnet_network_security_group_association" "rd-ad" {
 }
 resource "azurerm_network_security_group" "rd-sql" {
   name                = "${azurerm_subnet.rd-sql.name}-NSG"
-  location            = azurerm_resource_group.vnet.location
-  resource_group_name = azurerm_resource_group.vnet.name
+  location            = azurerm_resource_group.rds.location
+  resource_group_name = azurerm_resource_group.rds.name
 
   security_rule {
     name                       = "VNET"

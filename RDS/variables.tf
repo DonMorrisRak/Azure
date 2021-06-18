@@ -30,6 +30,7 @@ variable "buildticket" {}
 variable "ad_password" {}
 variable "builddate" {}
 variable "buildby" {}
+variable "rds_sas" {}
 
 ### Build Parameters ###
 variable "location" {
@@ -44,8 +45,6 @@ variable "environment" {
 variable "tags" {
   type = map(any)
   default = {
-    Application = "RDS"
-    Date        = "15/06/2021"
   }
 }
 
@@ -84,4 +83,8 @@ variable "ad_domain" {
 
 variable "ad_netbios_name" {
   default     = "don"
+}
+
+variable "ad_username" {
+  default     = "don-adm"
 }

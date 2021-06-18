@@ -4,13 +4,13 @@ module "vm_ads" {
   vm_count_start        = 1
   vm_count_zero_padding = 1 # Set to 0 to create a single server with no number suffix
 
-  vm_rsg_name    = azurerm_resource_group.rd-ad.name
+  vm_rsg_name    = azurerm_resource_group.rds.name
   vm_subnet_id   = azurerm_subnet.rd-ad.id
-  vm_size        = "Standard_B1s"
+  vm_size        = "Standard_F2s_v2"
   vm_name        = "uksrdsad"
   # vm_name_suffix = ""
 
-  vm_disk_sku    = "Standard_LRS"
+  vm_disk_sku    = "Premium_LRS"
  #vm_os_disk_size   = 128
   vm_data_disk_size = 32
 
