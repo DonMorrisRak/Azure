@@ -2,8 +2,9 @@
 
 
 resource "azurerm_virtual_machine_extension" "rds_gw_web" {
+  count                      = length(module.vm_gw_web.exports_vm.*.id)
   name                       = "RDS-GW-WEB"
-  virtual_machine_id         =  module.vm_gw_web.exports_vm.0.id
+  virtual_machine_id         =  element(module.vm_gw_web.exports_vm.*.id, count.index)
   publisher                  = "Microsoft.Powershell"
   type                       = "DSC"
   type_handler_version       = "2.20"

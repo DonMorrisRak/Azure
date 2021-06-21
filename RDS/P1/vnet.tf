@@ -3,7 +3,7 @@ resource "azurerm_virtual_network" "vnet" {
   location            = azurerm_resource_group.rds.location
   resource_group_name = azurerm_resource_group.rds.name
   address_space       = ["10.100.4.0/24"]
-  dns_servers         = ["10.100.4.101", "168.63.129.16"]
+  #dns_servers         = ["10.100.4.101"]
 
   tags = var.tags
 }

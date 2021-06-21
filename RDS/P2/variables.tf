@@ -31,6 +31,7 @@ variable "ad_password" {}
 variable "builddate" {}
 variable "buildby" {}
 variable "rds_sas" {}
+variable "ip" {}
 
 ### Build Parameters ###
 variable "location" {
@@ -87,4 +88,9 @@ variable "ad_netbios_name" {
 
 variable "ad_username" {
   default     = "don-adm"
+}
+
+variable "ses_hosts" {
+  type    = list(string)
+  default = ["uksrdssh1.don.local", "uksrdssh2.don.local"]
 }

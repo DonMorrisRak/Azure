@@ -1,6 +1,6 @@
 # DSC to Configure Connection Broker #
 resource "azurerm_virtual_machine_extension" "rds-cb" {
-  name                       = "RDS-Connection-Broker"
+  name                     = "RDS-Connection-Broker"
   virtual_machine_id         =  module.vm_cb_ls.exports_vm.0.id
   publisher                  = "Microsoft.Powershell"
   type                       = "DSC"
@@ -23,7 +23,7 @@ resource "azurerm_virtual_machine_extension" "rds-cb" {
       "DomainName": "${var.ad_domain}",
       "connectionBroker": "${module.vm_cb_ls.exports_vm.0.name}.${var.ad_domain}",
       "webAccessServer": "${module.vm_gw_web.exports_vm.0.name}.${var.ad_domain}",
-      "sessionHost": "${module.vm_sh.exports_vm.0.name}.${var.ad_domain}",
+      "sessionHost": "uksrdssh1.don.local,uksrdssh2.don.local",
       "externalfqdn": "uksrdsgwpip.uksouth.cloudapp.azure.com"
     }
  }
@@ -41,3 +41,6 @@ resource "azurerm_virtual_machine_extension" "rds-cb" {
     }
  PROTECTED_SETTINGS
 }
+
+# # "sessionHost": "${module.vm_sh.exports_vm.0.name}.${var.ad_domain}",
+#session_hosts              = join(",", module.vm_sh.exports_vm.*.name)

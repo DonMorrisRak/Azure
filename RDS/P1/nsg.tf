@@ -37,6 +37,18 @@ resource "azurerm_network_security_group" "rd-gw" {
     source_address_prefix      = "VirtualNetwork"
     destination_address_prefix = var.cidr_rd_gw
   }
+
+    security_rule {
+    name                       = "RDS"
+    priority                   = 120
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "443"
+    source_address_prefix      = var.ip
+    destination_address_prefix = var.cidr_rd_gw
+  }
 }
 
 resource "azurerm_subnet_network_security_group_association" "rd-gw" {

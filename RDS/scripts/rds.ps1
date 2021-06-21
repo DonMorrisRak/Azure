@@ -22,7 +22,7 @@ configuration Broker
         [String]$externalFqdn,
         
         # RD Session Host name
-        [String]$sessionHost,
+        [string]$SessionHost,
 
         # Collection Name
         [String]$collectionName,
@@ -43,6 +43,8 @@ configuration Broker
 
     if (-not $collectionName)         { $collectionName = "Desktop Collection" }
     if (-not $collectionDescription)  { $collectionDescription = "A sample RD Session collection up in cloud." }
+
+    $SessionHosts = @($SessionHost.split(','))
 
     Node localhost
     {
@@ -111,7 +113,7 @@ configuration Broker
         {
             ConnectionBroker = $connectionBroker
             WebAccessServer  = $webAccessServer
-            SessionHosts     = $sessionHost
+            SessionHosts     = $SessionHosts
             PsDscRunAsCredential = $domainCreds
         }
 
@@ -159,7 +161,7 @@ configuration Broker
             ConnectionBroker = $connectionBroker
             CollectionName = $collectionName
             CollectionDescription = $collectionDescription
-            SessionHosts = $sessionHost
+            SessionHosts = $sessionHosts
             PsDscRunAsCredential = $domainCreds
         }
     }

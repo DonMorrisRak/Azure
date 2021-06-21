@@ -2,8 +2,9 @@
 
 
 resource "azurerm_virtual_machine_extension" "rds_sh" {
+  count                        = length(module.vm_sh.exports_vm.*.id)
   name                       = "RDS-Session-Host"
-  virtual_machine_id         =  module.vm_sh.exports_vm.0.id
+  virtual_machine_id         =  element(module.vm_sh.exports_vm.*.id, count.index)
   publisher                  = "Microsoft.Powershell"
   type                       = "DSC"
   type_handler_version       = "2.20"

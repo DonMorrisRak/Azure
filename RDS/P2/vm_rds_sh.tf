@@ -1,34 +1,12 @@
-module "pip_gw" {
-  source = "github.com/global-azure/terraform-azurerm-publicip.git"
-
-  pip_count              = 1
-  # pip_count_start        = 3
-  # pip_count_zero_padding = 2
-
-  name        = "UKS-RDS-GW-PIP"
-  pip_rsg     = azurerm_resource_group.rds.name
-  pip_sku     = "Standard"
-  allocation  = "Static"
-  # pip_avzones = ["1"]
-
-  location        = var.location
-  environment     = var.environment
-  tag_buildby     = var.buildby
-  tag_buildticket = var.buildticket
-  tag_builddate   = var.builddate
-  tag_custom      = var.tags
-}
-
-
-module "vm_gw_web" {
+module "vm_sh" {
   source = "github.com/global-azure/terraform-azurerm-vm.git"
 
-  vm_count              = 1
+  vm_count              = 2
   vm_count_start        = 1
   vm_count_zero_padding = 1 # Set to 0 to create a single server with no number suffix
 
-  rsg            = azurerm_resource_group.rds.name
-  vm_name        = "uksrdsgwweb"
+  rsg            = data.azurerm_resource_group.rds.name
+  vm_name        = "uksrdssh"
   # vm_name_suffix = ""
   vm_size        = "Standard_F2s_v2"
   os_disk_sku    = "Premium_LRS"
@@ -36,9 +14,9 @@ module "vm_gw_web" {
 
   #nic_dns                      = ["10.100.4.101", "168.63.129.16"]
   # nic_private_ip_address_start = "192.168.50.4"
-  nic_pip_id                   =  module.pip_gw.exports.*.id
+  # nic_pip_id                   = module.pip.exports.*.id
   # nic_accelerated_networking   = false
-  nic_subnet_id = azurerm_subnet.rd-gw.id
+  nic_subnet_id = data.azurerm_subnet.rd-sh.id
   # Uncomment to define either an Availability Set or Availability Zone.
   # For zones, define which zones to create the VM(s) in. Will loop in ascending order (eg. 1, 2, 3, 1, 2, 3)
   # vm_avset_id = "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/LOC-ENV-RSG-CODE-SERVICE/providers/Microsoft.Compute/availabilitySets/locenvcodeapp-as"
@@ -101,10 +79,10 @@ module "vm_gw_web" {
 # }
 
 ### Domain Join ###
-module "ext_ad_gw" {
+module "ext_ad_sh" {
   source                    = "github.com/global-azure/terraform-azurerm-domain-join.git"
   # is_vmss                   = false
-  vm_id                     = module.vm_gw_web.exports_vm.*.id
+  vm_id                     = module.vm_sh.exports_vm.*.id
   vm_extension_ad_domain    = var.ad_domain
   vm_extension_ad_username  = var.ad_username
   vm_extension_ad_password  = var.ad_password

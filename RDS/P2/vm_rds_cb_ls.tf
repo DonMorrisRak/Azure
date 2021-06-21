@@ -5,7 +5,7 @@ module "vm_cb_ls" {
   vm_count_start        = 1
   vm_count_zero_padding = 1 # Set to 0 to create a single server with no number suffix
 
-  rsg            = azurerm_resource_group.rds.name
+  rsg            = data.azurerm_resource_group.rds.name
   vm_name        = "uksrdscbls"
   # vm_name_suffix = ""
   vm_size        = "Standard_F2s_v2"
@@ -16,7 +16,7 @@ module "vm_cb_ls" {
   # nic_private_ip_address_start = "192.168.50.4"
   # nic_pip_id                   = module.pip.exports.*.id
   # nic_accelerated_networking   = false
-  nic_subnet_id = azurerm_subnet.rd-cb.id
+  nic_subnet_id = data.azurerm_subnet.rd-cb.id
   # Uncomment to define either an Availability Set or Availability Zone.
   # For zones, define which zones to create the VM(s) in. Will loop in ascending order (eg. 1, 2, 3, 1, 2, 3)
   # vm_avset_id = "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/LOC-ENV-RSG-CODE-SERVICE/providers/Microsoft.Compute/availabilitySets/locenvcodeapp-as"
