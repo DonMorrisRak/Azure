@@ -212,3 +212,92 @@ configuration Session
         }
     }
 }
+
+# Add Gateway and Web nodes
+configuration gatewayAdd
+{
+
+    param 
+    ( 
+        [Parameter(Mandatory)]
+        [String]$domainName,
+
+        [Parameter(Mandatory)]
+        [PSCredential]$adminCreds,
+
+        # Connection Broker Node name
+        [String]$connectionBroker,
+        
+        # Web Access Node name
+        [String]$webAccessServer,
+
+        # Gateway external FQDN
+        [String]$externalFqdn,
+        
+        # RD Session Host name
+        [string]$SessionHost,
+
+        # Collection Name
+        [String]$collectionName,
+
+        # Connection Description
+        [String]$collectionDescription
+
+    ) 
+    
+    Import-DscResource -ModuleName xComputerManagement -Moduleversion 1.2.2
+    Import-DscResource -ModuleName PSDesiredStateConfiguration -ModuleVersion 1.1
+    Import-DscResource -ModuleName xRemoteDesktopSessionHost -ModuleVersion 1.0.1
+
+    $localhost = [System.Net.Dns]::GetHostByName((hostname)).HostName
+
+    $username = $adminCreds.UserName -split '\\' | select -last 1
+    $domainCreds = New-Object System.Management.Automation.PSCredential ("$domainName\$username", $adminCreds.Password)
+
+    if (-not $collectionName)         { $collectionName = "Desktop Collection" }
+    if (-not $collectionDescription)  { $collectionDescription = "A sample RD Session collection up in cloud." }
+
+    $SessionHosts = @($SessionHost.split(','))
+
+    Node localhost
+    {
+
+        LocalConfigurationManager
+        {
+            RebootNodeIfNeeded = $true
+            ConfigurationMode = "ApplyOnly"
+        }
+
+        WindowsFeature RDS-Gateway
+        {
+            Ensure = "Present"
+            Name = "RDS-Gateway"
+        }
+
+        WindowsFeature RDS-Web-Access
+        {
+            Ensure = "Present"
+            Name = "RDS-Web-Access"
+        }
+
+        # xRDServer AddWebAccessServer
+        # {
+        #     Role    = 'RDS-Web-Access'
+        #     Server  = $localhost
+        #     GatewayExternalFqdn = $externalFqdn
+        #     ConnectionBroker = $connectionBroker
+
+        #     PsDscRunAsCredential = $domainCreds
+        # }
+
+        xRDServer AddGatewayServer
+        {
+            Role    = 'RDS-Gateway'
+            Server  = $localhost
+            GatewayExternalFqdn = $externalFqdn
+            ConnectionBroker = $connectionBroker
+
+            PsDscRunAsCredential = $domainCreds
+        }
+    }
+}

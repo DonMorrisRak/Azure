@@ -1,15 +1,11 @@
-module "pip_gw" {
-  source = "github.com/global-azure/terraform-azurerm-publicip.git"
+module "avset-gw" {
+  source = "github.com/global-azure/terraform-azurerm-avset.git"
 
-  pip_count              = 1
-  # pip_count_start        = 3
-  # pip_count_zero_padding = 2
-
-  name        = "UKS-RDS-GW-PIP"
-  pip_rsg     = data.azurerm_resource_group.rds.name
-  pip_sku     = "Standard"
-  allocation  = "Static"
-  # pip_avzones = ["1"]
+  name                = "uksrdsgwweb-avset"
+  avset_rsg           = data.azurerm_resource_group.rds.name
+  # update_domain_count = 5
+  # fault_domain_count  = 2
+  # ppg_id              = ""
 
   location        = var.location
   environment     = var.environment
@@ -36,12 +32,12 @@ module "vm_gw_web" {
 
   #nic_dns                      = ["10.100.4.101", "168.63.129.16"]
   # nic_private_ip_address_start = "192.168.50.4"
-  nic_pip_id                   =  module.pip_gw.exports.*.id
+  #nic_pip_id                   =  module.pip_gw.exports.*.id
   # nic_accelerated_networking   = false
   nic_subnet_id = data.azurerm_subnet.rd-gw.id
   # Uncomment to define either an Availability Set or Availability Zone.
   # For zones, define which zones to create the VM(s) in. Will loop in ascending order (eg. 1, 2, 3, 1, 2, 3)
-  # vm_avset_id = "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/LOC-ENV-RSG-CODE-SERVICE/providers/Microsoft.Compute/availabilitySets/locenvcodeapp-as"
+  vm_avset_id = module.avset-gw.exports.id
   #vm_avzones  = ["1", "2"]
   # vm_ppg      = "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/LOC-ENV-RSG-CODE-SERVICE/providers/Microsoft.Compute/proximityPlacementGroups/locenvcodeapp-ppg"
 
