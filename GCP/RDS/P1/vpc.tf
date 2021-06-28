@@ -33,7 +33,7 @@ resource "google_compute_subnetwork" "rds-sh" {
   private_ip_google_access = true
 }
 resource "google_compute_firewall" "rules" {
-  project     = var.project_id #
+  project     = var.project_id
   name        = "internal"
   network     = google_compute_network.vpc.id
   description = "Creates firewall rule targeting tagged instances"
@@ -57,7 +57,7 @@ resource "google_compute_firewall" "rules" {
 }
 
 resource "google_compute_firewall" "remote" {
-  project     = var.project_id #
+  project     = var.project_id
   name        = "remote"
   network     = google_compute_network.vpc.id
   direction   = "INGRESS"

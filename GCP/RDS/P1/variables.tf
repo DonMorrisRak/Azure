@@ -20,7 +20,7 @@ terraform {
 
 
 provider "google" {
-  project = "don-rds"
+  project = "mpc-donavan-morris"
   region  = "europe-west2"
   zone    = "europe-west2-a"
 }
@@ -36,7 +36,7 @@ variable "rds_sas" {}
 variable "ip" {}
 
 variable "project_id" {
-  default = "don-rds"
+  default = "mpc-donavan-morris"
 }
 
 ### Build Parameters ###

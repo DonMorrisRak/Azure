@@ -24,7 +24,7 @@ resource "google_compute_instance" "rds_cb_ls" {
   }
 
 metadata = {
-    windows-startup-script-url	= "gs://don-rds/startup.ps1"
+    windows-startup-script-url	= "gs://don-rax-rds/startup.ps1"
 #     sysprep-specialize-script-url  = "gs://rs-gce-instances-scripts-master/windows/rs-config.ps1"
 #     configure-windows-rdp          = true
 #     configure-windows-rm           = true
@@ -36,4 +36,9 @@ metadata = {
 #     windows-firewall-enabled       = false
 #     initialise-gcp-disks           = true
 }
+
+  service_account {
+    email  = "don-157@mpc-donavan-morris.iam.gserviceaccount.com"
+    scopes = ["cloud-platform"]
+  }
 }
