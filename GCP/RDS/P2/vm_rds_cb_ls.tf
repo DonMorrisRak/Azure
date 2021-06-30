@@ -10,7 +10,7 @@ resource "google_compute_disk" "rds_cb_ls" {
 
 resource "google_compute_instance" "rds_cb_ls" {
   name                      = "uksrdscbls1"
-  machine_type              = "e2-small"
+  machine_type              = "e2-medium"
   zone                      = var.zone
   allow_stopping_for_update = true
 
@@ -24,8 +24,9 @@ resource "google_compute_instance" "rds_cb_ls" {
   }
 
 metadata = {
-    windows-startup-script-url	= "gs://don-rax-rds/startup.ps1"
-#     sysprep-specialize-script-url  = "gs://rs-gce-instances-scripts-master/windows/rs-config.ps1"
+#    windows-startup-script-url	= "gs://don-rax-rds/startup.ps1"
+    sysprep-specialize-script-url  = "gs://don-rax-rds/startup.ps1"
+    role                           = "gateway"
 #     configure-windows-rdp          = true
 #     configure-windows-rm           = true
 #     install-stackdriver-monitoring = true
