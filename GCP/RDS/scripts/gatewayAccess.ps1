@@ -9,6 +9,21 @@ $cred = New-Object System.Management.Automation.PSCredential -ArgumentList @($ad
 $domainName = gcloud secrets versions access 1 --secret="ad-domain"
 $MODULE_DIR="$env:ProgramFiles\WindowsPowerShell\Modules"
 
+[DSCLocalConfigurationManager()]
+configuration lcm
+{
+    Node localhost
+    {
+        Settings
+        {
+            ActionAfterReboot = "ContinueConfiguration"
+            ConfigurationMode = "ApplyOnly"
+            RebootNodeIfNeeded = $true
+
+        }
+    }
+}
+
 configuration DomainJoin 
 { 
    param 
@@ -23,11 +38,6 @@ configuration DomainJoin
    
     Node localhost
     {
-        LocalConfigurationManager
-        {
-            RebootNodeIfNeeded = $true
-            ConfigurationMode = "ApplyOnly"
-        }
 
         WindowsFeature ADPowershell
         {
@@ -43,7 +53,7 @@ configuration DomainJoin
    }
 }
 
-Configuration InitialConfiguration
+configuration gatewayAccess
 {
    param 
     ( 
@@ -58,12 +68,6 @@ Configuration InitialConfiguration
     Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
     Node localhost
     {
-
-        LocalConfigurationManager
-        {
-            RebootNodeIfNeeded = $true
-            ConfigurationMode = "ApplyOnly"
-        }
 
         WindowsFeature RDS-Gateway
         {
@@ -95,6 +99,10 @@ $ConfigData = @{
     )
 }
 
+lcm
+Set-DscLocalConfigurationManager -Path .\lcm
 
-InitialConfiguration -BASE_DIR $BASE_DIR -GCS_FOLDER $GCS_FOLDER -GCS_BUCKET $GCS_BUCKET -domainname $domainname -cred $cred -MODULE_DIR $MODULE_DIR -ConfigurationData $ConfigData -Verbose
-Start-DscConfiguration -Wait -Force -Path .\InitialConfiguration -Verbose
+gatewayAccess -BASE_DIR $BASE_DIR -GCS_FOLDER $GCS_FOLDER -GCS_BUCKET $GCS_BUCKET -domainname $domainname -cred $cred -MODULE_DIR $MODULE_DIR -ConfigurationData $ConfigData -Verbose
+Start-DscConfiguration -Wait -Force -Path .\gatewayAccess -Verbose
+
+####Remove-DscConfigurationDocument

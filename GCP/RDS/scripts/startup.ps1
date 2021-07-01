@@ -13,12 +13,18 @@ function Get-GcsRds {
 if (-not (Test-Path -Path "$BASE_DIR")) {
     New-Item -Path "$BASE_DIR" -ItemType Directory -Force | Out-Null
 }
-    gsutil cp -r "gs://$GCS_BUCKET/$GCS_FOLDER" $BASE_DIR
+    
+gsutil cp -r "gs://$GCS_BUCKET/$GCS_FOLDER" $BASE_DIR
 
 
 if (-not (Test-Path -Path "$MODULE_DIR\xDSCDomainjoin")) {
     Copy-Item -Path "$BASE_DIR\$GCS_FOLDER\xDSCDomainjoin" -Destination "$MODULE_DIR" -Recurse
     Import-Module -Name xDSCDomainjoin
+}
+
+if (-not (Test-Path -Path "$MODULE_DIR\xRemoteDesktopSessionHost")) {
+    Copy-Item -Path "$BASE_DIR\$GCS_FOLDER\xRemoteDesktopSessionHost" -Destination "$MODULE_DIR" -Recurse
+    Import-Module -Name xRemoteDesktopSessionHost
 }
 }
 

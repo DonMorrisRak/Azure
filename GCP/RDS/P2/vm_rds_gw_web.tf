@@ -1,5 +1,5 @@
-resource "google_compute_disk" "rds_cb_ls" {
-  name  = "rds-cb-ls-boot"
+resource "google_compute_disk" "rds_gw_web" {
+  name  = "rds-gw-web-boot"
   zone  = var.zone
   image = "windows-2019"
   size  = 60
@@ -8,25 +8,25 @@ resource "google_compute_disk" "rds_cb_ls" {
   physical_block_size_bytes = 4096
 }
 
-resource "google_compute_instance" "rds_cb_ls" {
-  name                      = "uksrdscbls1"
+resource "google_compute_instance" "rds_gw_web" {
+  name                      = "uksrdsgwweb1"
   machine_type              = "e2-medium"
   zone                      = var.zone
   allow_stopping_for_update = true
 
   boot_disk {
     auto_delete = "true"
-    source      = google_compute_disk.rds_cb_ls.self_link
+    source      = google_compute_disk.rds_gw_web.self_link
   }
 
   network_interface {
-    subnetwork         = data.google_compute_subnetwork.rds-cb.self_link
+    subnetwork         = data.google_compute_subnetwork.rds-gw.self_link
   }
 
 metadata = {
 #    windows-startup-script-url	= "gs://don-rax-rds/startup.ps1"
     sysprep-specialize-script-url  = "gs://don-rax-rds/startup.ps1"
-    role                           = "connectionBroker"
+    role                           = "gatewayAccess"
 #     configure-windows-rdp          = true
 #     configure-windows-rm           = true
 #     install-stackdriver-monitoring = true
