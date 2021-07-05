@@ -18,3 +18,7 @@ data "google_compute_subnetwork" "rds-cb" {
   project                 = var.project_id
 }
 
+data "google_compute_address" "ip" {
+  project     = var.project_id
+  name    = "rds-gw-pip"
+}

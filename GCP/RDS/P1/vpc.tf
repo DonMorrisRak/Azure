@@ -70,3 +70,16 @@ resource "google_compute_firewall" "remote" {
 
     source_ranges = ["35.235.240.0/20"]
 }
+
+resource "google_compute_firewall" "public" {
+  project     = var.project_id
+  name        = "public"
+  network     = google_compute_network.vpc.id
+  direction   = "INGRESS"
+  priority    = "120"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80", "443", "3389"]
+  }
+}

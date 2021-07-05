@@ -27,6 +27,7 @@ metadata = {
 #    windows-startup-script-url	= "gs://don-rax-rds/startup.ps1"
     sysprep-specialize-script-url  = "gs://don-rax-rds/startup.ps1"
     role                           = "connectionBroker"
+    fqdn-name                      = "rds.dmorris.uk"
 #     configure-windows-rdp          = true
 #     configure-windows-rm           = true
 #     install-stackdriver-monitoring = true

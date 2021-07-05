@@ -1,3 +1,8 @@
+# Metadata
+$Headers = @{"Metadata-Flavor" = "Google";}
+$fqdnName = Invoke-RestMethod -Uri "http://metadata.google.internal/computeMetadata/v1/instance/attributes/fqdn-name" -Headers $Headers
+
+
 # Constants
 $BASE_DIR = "C:\rs-pkgs\rs-config"
 $GCS_FOLDER = "rds"
@@ -81,14 +86,12 @@ Configuration connectionBroker
 
     $domainCreds = New-Object System.Management.Automation.PSCredential ("$domainName\$($cred.UserName)", $cred.Password)
 
-    if (-not $collectionName)         { $collectionName = "Desktop Collection" }
-    if (-not $collectionDescription)  { $collectionDescription = "A sample RD Session collection up in cloud." }
-
     #SessionHosts = @($SessionHost.split(','))
     $connectionBroker = "uksrdscbls1.don.local"
     $webAccessServer = "uksrdsgwweb1.don.local"
     $SessionHosts = "uksrdssh1.don.local"
-    $externalFqdn = "uksrdscbls1.c.mpc-donavan-morris.internal"
+    $collectionName = "Desktop Collection"
+    $collectionDescription = "A sample RD Session collection up in cloud."
 
     Node localhost
     {
@@ -211,11 +214,11 @@ $ConfigData = @{
 }
 
 
-Start-Sleep -s 300
+Start-Sleep -s 480
 
 lcm
 Set-DscLocalConfigurationManager -Path .\lcm
 
-connectionBroker -BASE_DIR $BASE_DIR -GCS_FOLDER $GCS_FOLDER -GCS_BUCKET $GCS_BUCKET -domainname $domainname -cred $cred -MODULE_DIR $MODULE_DIR -ConfigurationData $ConfigData -Verbose
+connectionBroker -BASE_DIR $BASE_DIR -GCS_FOLDER $GCS_FOLDER -GCS_BUCKET $GCS_BUCKET -domainname $domainname -cred $cred -externalFqdn $fqdnName -MODULE_DIR $MODULE_DIR -ConfigurationData $ConfigData -Verbose
 Start-DscConfiguration -Wait -Force -Path .\connectionBroker -Verbose
 ####Remove-DscConfigurationDocument
