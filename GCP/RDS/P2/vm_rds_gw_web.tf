@@ -27,14 +27,12 @@ metadata = {
 #    windows-startup-script-url	= "gs://don-rax-rds/startup.ps1"
     sysprep-specialize-script-url  = "gs://don-rax-rds/startup.ps1"
     role                           = "gatewayAccess"
-    #     configure-windows-rm           = true
-#     install-stackdriver-monitoring = true
-#     install-stackdriver-logging    = true
-#     configure-windows-update       = true
-#     windows-update-type            = true
-#     configure-windows-firewall     = true
-#     windows-firewall-enabled       = false
-#     initialise-gcp-disks           = true
+    fqdn-name                      = "rds.dmorris.uk"
+    web-access-server            = "uksrdsgwweb1.${var.ad_domain}"
+    connection-broker              = "uksrdscbls1.${var.ad_domain}"
+    session-host                   = "uksrdssh1.${var.ad_domain}"
+    collection-name                = "Desktop Collection"
+    collection-description         = "Sample Collection for RDS"
 }
 
   service_account {
